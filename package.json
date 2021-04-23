@@ -1,0 +1,8 @@
+{
+  "name": "application_specs",
+  "devDependencies": {
+    "aglio": "^2.3.0",
+    "gulp": "^4.0.2",
+    "gulp-aglio": "^0.0.14"
+  }
+}
