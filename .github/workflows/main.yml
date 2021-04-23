@@ -22,7 +22,17 @@ jobs:
 
       - name: Use Node.js
         uses: actions/setup-node@v1
-      - run: npm install
+
+      - name: Cache node_modules
+        id: node_modules_cache_id
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: node-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/package-lock.json')) }}
+
+      - name: npm install
+        if: steps.node_modules_cache_id.outputs.cache-hit != 'true'
+        run: npm install
 
       - name: Run aglio
         run: npx gulp
@@ -30,4 +40,4 @@ jobs:
       - name: Upload file to S3
         env:
           S3_UPLOAD_BUCKET: ${{ secrets.S3_UPLOAD_BUCKET }}
-        run: aws s3 sync ./pub/api s3://$S3_UPLOAD_BUCKET/ --quiet
+        run: aws s3 sync ./pub/api s3://$S3_UPLOAD_BUCKET --quiet
