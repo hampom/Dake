@@ -40,4 +40,4 @@ jobs:
       - name: Upload file to S3
         env:
           S3_UPLOAD_BUCKET: ${{ secrets.S3_UPLOAD_BUCKET }}
-        run: aws s3 sync ./pub/api s3://$S3_UPLOAD_BUCKET/${GITHUB_REF##*/} --quiet
+        run: aws s3 sync ./pub/api s3://${S3_UPLOAD_BUCKET}/${GITHUB_REF##*/} --quiet
