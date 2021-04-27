@@ -21,9 +21,9 @@ jobs:
           aws-region: ap-northeast-1
 
       - name: Extract branch name
-       shell: bash
-         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-          id: extract_branch
+        id: extract_branch
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
 
       - name: Use Node.js
         uses: actions/setup-node@v1
